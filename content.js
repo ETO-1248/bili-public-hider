@@ -14,7 +14,9 @@
     hideFavorites: true,
     hideBangumi: true,
     hideSubmissions: true,
-    hideCreator: true
+    hideCreator: true,
+    hideDynamics: true,
+    hideMessages: true
   });
 
   const FEATURE_KEYS = [
@@ -25,7 +27,9 @@
     'favorites',
     'bangumi',
     'submissions',
-    'creator'
+    'creator',
+    'dynamics',
+    'messages'
   ];
   const FEATURE_SETTING = {
     triple: 'hideTriple',
@@ -35,7 +39,9 @@
     favorites: 'hideFavorites',
     bangumi: 'hideBangumi',
     submissions: 'hideSubmissions',
-    creator: 'hideCreator'
+    creator: 'hideCreator',
+    dynamics: 'hideDynamics',
+    messages: 'hideMessages'
   };
 
   const HEADER_SELECTOR = [
@@ -100,7 +106,9 @@
       'hideFavorites',
       'hideBangumi',
       'hideSubmissions',
-      'hideCreator'
+      'hideCreator',
+      'hideDynamics',
+      'hideMessages'
     ]) {
       result[key] = typeof source[key] === 'boolean' ? source[key] : DEFAULT_SETTINGS[key];
     }
@@ -214,6 +222,8 @@
     if (/^(追番|我的追番|追剧|我的追剧|番剧|番剧索引)$/.test(value)) return 'bangumi';
     if (/^(投稿|投稿管理|我的投稿|稿件管理)$/.test(value)) return 'submissions';
     if (/^(创作中心|创作者中心)$/.test(value)) return 'creator';
+    if (/^(动态|我的动态|动态首页|动态频道)(\s*\d+)?$/.test(value)) return 'dynamics';
+    if (/^(消息|私信|通知|消息中心|我的消息)(\s*\d+)?$/.test(value)) return 'messages';
     return null;
   }
 
@@ -297,6 +307,12 @@
         if (settings.hideCreator && isCreatorUrl(anchor)) {
           mark(anchor, 'creator');
         }
+        if (settings.hideDynamics && href.includes('t.bilibili.com')) {
+          mark(anchor, 'dynamics');
+        }
+        if (settings.hideMessages && href.includes('message.bilibili.com')) {
+          mark(anchor, 'messages');
+        }
       }
 
       for (const entry of header.querySelectorAll(HEADER_ENTRY_SELECTOR)) {
@@ -311,6 +327,18 @@
   function scanPersonalBangumiLinks() {
     document.querySelectorAll('a[href*="/bangumi"]').forEach((anchor) => {
       if (isPersonalBangumiUrl(anchor)) mark(anchor, 'bangumi');
+    });
+  }
+
+  function scanDynamicPageProfileLinks() {
+    if (location.hostname !== 't.bilibili.com') return;
+    document.querySelectorAll('a[href]').forEach((anchor) => {
+      const text = normalize(anchor.innerText);
+      const href = anchor.getAttribute('href') || '';
+      if (text === '我的主页' || text === '个人主页' ||
+        (text === '主页' && href.includes('space.bilibili.com'))) {
+        mark(entryTarget(anchor), 'profile');
+      }
     });
   }
 
@@ -329,10 +357,11 @@
     if (settings.hideTriple) scanTriple();
     if (settings.hideHome || settings.hideProfile || settings.hideHistory ||
       settings.hideFavorites || settings.hideBangumi || settings.hideSubmissions ||
-      settings.hideCreator) {
+      settings.hideCreator || settings.hideDynamics || settings.hideMessages) {
       scanHeader();
     }
     if (settings.hideBangumi) scanPersonalBangumiLinks();
+    if (settings.hideProfile) scanDynamicPageProfileLinks();
   }
 
   function scheduleScan() {
@@ -369,7 +398,19 @@
       const creatorPage = url.hostname === 'member.bilibili.com';
       const submissionPage = creatorPage &&
         (url.pathname.includes('/upload') || url.pathname.includes('/archive'));
+      const dynamicsPage = url.hostname === 't.bilibili.com';
+      const messagesPage = url.hostname === 'message.bilibili.com';
 
+      if (settings.enabled && settings.hideDynamics && dynamicsPage) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
+      if (settings.enabled && settings.hideMessages && messagesPage) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
       if (settings.enabled && settings.hideBangumi && bangumiPage) {
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -480,6 +521,8 @@
     root.setAttribute('data-bph-bangumi', 'true');
     root.setAttribute('data-bph-submissions', 'true');
     root.setAttribute('data-bph-creator', 'true');
+    root.setAttribute('data-bph-dynamics', 'true');
+    root.setAttribute('data-bph-messages', 'true');
 
     applyAttributes();
     startObserver();

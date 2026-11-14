@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "BiliPublicHider — B站公共大屏隐私隐藏",
   "short_name": "BiliPublicHider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "教室与公用设备专用：隐藏视频三连按钮、首页、个人主页、历史、收藏夹、追番、投稿和创作中心入口，支持设置密码锁定。",
   "minimum_chrome_version": "105",
   "permissions": ["storage"],

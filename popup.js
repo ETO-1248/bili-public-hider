@@ -13,7 +13,7 @@
   const Backgrounds = globalThis.BPHBackgrounds;
 
   const DEFAULT_APPEARANCE = Object.freeze({
-    background: 'none'
+    background: 'random'
   });
 
   const DEFAULT_SETTINGS = Object.freeze({
@@ -25,7 +25,9 @@
     hideFavorites: true,
     hideBangumi: true,
     hideSubmissions: true,
-    hideCreator: true
+    hideCreator: true,
+    hideDynamics: true,
+    hideMessages: true
   });
 
   const els = {
@@ -499,7 +501,7 @@
       renderSettings();
       renderAppearance();
       queueSave();
-      saveAppearance('none', false);
+      saveAppearance(DEFAULT_APPEARANCE.background, false);
       showBadge('已恢复默认');
     });
 
