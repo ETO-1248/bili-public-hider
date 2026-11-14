@@ -1,14 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  BiliPublicHider application icon.
-  Original artwork, dedicated to the public domain under CC0 1.0.
-  https://creativecommons.org/publicdomain/zero/1.0/
--->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="BiliPublicHider shield and play icon">
-  <rect width="512" height="512" rx="113" fill="#FB7299"/>
-  <circle cx="447" cy="28" r="120" fill="#FF9EBB" fill-opacity="0.31"/>
-  <circle cx="469" cy="372" r="98" fill="#E8527F" fill-opacity="0.18"/>
-  <path d="M256 75C295 99 334 110 380 114V176C380 262 331 330 256 380C181 330 132 262 132 176V114C178 110 217 99 256 75Z" fill="#FFFFFF"/>
-  <circle cx="256" cy="232" r="75" fill="#F25D86"/>
-  <path d="M237 195L237 270L303 232.5Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.9.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FB7299;}
+	.st1{fill:#92747D;}
+	.st2{fill:#785D65;}
+	.st3{fill:#FFFFFF;}
+	.st4{fill:#F25D86;}
+	.st5{fill:#FFFFFF;stroke:#FFFFFF;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<defs>
+	<clipPath id="tileClip">
+		<path d="M113,0h286c62.4,0,113,50.6,113,113v286c0,62.4-50.6,113-113,113H113C50.6,512,0,461.4,0,399V113C0,50.6,50.6,0,113,0z"/>
+	</clipPath>
+</defs>
+<path class="st0" d="M113,0h286c62.4,0,113,50.6,113,113v286c0,62.4-50.6,113-113,113H113C50.6,512,0,461.4,0,399V113
+	C0,50.6,50.6,0,113,0z"/>
+<circle class="st1" cx="447" cy="28" r="120" clip-path="url(#tileClip)"/>
+<circle class="st2" cx="469" cy="372" r="98" clip-path="url(#tileClip)"/>
+<path class="st3" d="M206,138.2c35.2,20.9,70.4,30.4,111.9,33.9V226c0,74.7-44.2,133.8-111.9,177.3C138.3,359.8,94.1,300.7,94.1,226
+	v-53.9C135.6,168.7,170.8,159.1,206,138.2z"/>
+<ellipse class="st4" cx="206" cy="260.8" rx="67.7" ry="65.2"/>
+<path class="st5" d="M186.1,228.2v65.2l59.6-32.6L186.1,228.2z"/>
+
 </svg>
