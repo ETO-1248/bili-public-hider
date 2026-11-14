@@ -1,0 +1,276 @@
+/* BiliPublicHider — 公共大屏隐藏样式
+ * 所有规则都以 html[data-bph-*] 为前缀，默认不修改页面，
+ * 由 content.js 读取设置后精确启用。 */
+
+/* ------------------------------------------------------------------
+ * 启动阶段的防闪烁规则：在读取 chrome.storage 的几毫秒内先隐藏常见入口。
+ * 如果用户关闭了对应功能，content.js 会移除 data-bph-booting 恢复显示。
+ * ------------------------------------------------------------------ */
+html[data-bph-booting] :is(
+  .video-like,
+  .video-coin,
+  .video-fav,
+  .video-collect,
+  .video-favorite,
+  .video-toolbar-left-item:has(.video-like),
+  .video-toolbar-left-item:has(.video-coin),
+  .video-toolbar-left-item:has(.video-fav),
+  .video-toolbar-left-item:has(.video-collect),
+  .video-toolbar-left-item:has(.video-favorite),
+  .toolbar-left-item-wrap:has(.video-like),
+  .toolbar-left-item-wrap:has(.video-coin),
+  .toolbar-left-item-wrap:has(.video-fav),
+  .bili-header .header-avatar-wrap,
+  .bili-header .header-avatar,
+  .bili-header .right-entry--avatar,
+  .bili-header .right-entry--history,
+  .bili-header .right-entry--favorite,
+  .bili-header .right-entry--bangumi,
+  .bili-header .right-entry--create,
+  .bili-header .right-entry--creator,
+  .bili-header .header-history,
+  .bili-header .header-fav,
+  .bili-header .header-bangumi,
+  .bili-header .header-create,
+  .bili-header .upload-entry,
+  .bili-header .upload-btn,
+  .bili-header .nav-upload,
+  .bili-header .bili-header__logo,
+  .bili-header .left-entry__title,
+  .bili-header a[href*="/history"],
+  .bili-header a[href*="/medialist"],
+  .bili-header a[href*="/favlist"],
+  .bili-header a[href*="/anime"],
+  .bili-header a[href*="member.bilibili.com/platform/home"],
+  .bili-header a[href*="member.bilibili.com"][href*="/upload"],
+  .bili-header a[href*="member.bilibili.com"][href*="/archive"],
+  #biliHeader .header-avatar-wrap,
+  #biliHeader .header-avatar,
+  #biliHeader .right-entry--avatar,
+  #biliHeader .right-entry--history,
+  #biliHeader .right-entry--favorite,
+  #biliHeader .right-entry--bangumi,
+  #biliHeader .right-entry--create,
+  #biliHeader .right-entry--creator,
+  #biliHeader .header-history,
+  #biliHeader .header-fav,
+  #biliHeader .header-bangumi,
+  #biliHeader .header-create,
+  #biliHeader .upload-entry,
+  #biliHeader .upload-btn,
+  #biliHeader .nav-upload,
+  #biliHeader a[href*="/history"],
+  #biliHeader a[href*="/medialist"],
+  #biliHeader a[href*="/favlist"],
+  #biliHeader a[href*="/anime"],
+  #biliHeader a[href*="member.bilibili.com/platform/home"],
+  #biliHeader a[href*="member.bilibili.com"][href*="/upload"],
+  #biliHeader a[href*="member.bilibili.com"][href*="/archive"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 防误触三连：点赞 / 投币 / 收藏
+ * 同时隐藏按钮外层，避免工具栏留下空位。
+ * ------------------------------------------------------------------ */
+html[data-bph-triple="true"] :is(
+  .video-like,
+  .video-coin,
+  .video-fav,
+  .video-collect,
+  .video-favorite,
+  .video-toolbar-left-item:has(.video-like),
+  .video-toolbar-left-item:has(.video-coin),
+  .video-toolbar-left-item:has(.video-fav),
+  .video-toolbar-left-item:has(.video-collect),
+  .video-toolbar-left-item:has(.video-favorite),
+  .video-toolbar-left-item.video-like,
+  .video-toolbar-left-item.video-coin,
+  .video-toolbar-left-item.video-fav,
+  .toolbar-left-item-wrap:has(.video-like),
+  .toolbar-left-item-wrap:has(.video-coin),
+  .toolbar-left-item-wrap:has(.video-fav),
+  .video-toolbar-left > .like,
+  .video-toolbar-left > .coin,
+  .video-toolbar-left > .collect,
+  .video-toolbar-left > .fav,
+  .video-toolbar-left > .like-wrap,
+  .video-toolbar-left > .coin-wrap,
+  .video-toolbar-left > .collect-wrap,
+  #arc_toolbar_report .toolbar-left > .like,
+  #arc_toolbar_report .toolbar-left > .coin,
+  #arc_toolbar_report .toolbar-left > .collect,
+  #arc_toolbar_report .toolbar-left > .fav,
+  #arc_toolbar_report .toolbar-left > .like-wrap,
+  #arc_toolbar_report .toolbar-left > .coin-wrap,
+  #arc_toolbar_report .toolbar-left > .collect-wrap,
+  .video-toolbar-left [class*="triple"],
+  #arc_toolbar_report [class*="triple"],
+  [data-bph-mark~="triple"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 首页按钮：B站顶栏的 Logo / 首页入口
+ * ------------------------------------------------------------------ */
+html[data-bph-home="true"] :is(
+  .bili-header .bili-header__logo,
+  .bili-header .logo,
+  .bili-header .header-logo,
+  .bili-header .left-entry__title,
+  .bili-header .home-link,
+  .bili-header .header-home,
+  .bili-header a[href="/"],
+  .bili-header a[href="//www.bilibili.com/"],
+  .bili-header a[href="https://www.bilibili.com/"],
+  #biliHeader .bili-header__logo,
+  #biliHeader .logo,
+  #biliHeader .header-logo,
+  #biliHeader .left-entry__title,
+  #biliHeader .home-link,
+  #biliHeader .header-home,
+  #biliHeader a[href="/"],
+  #biliHeader a[href="//www.bilibili.com/"],
+  #biliHeader a[href="https://www.bilibili.com/"],
+  [data-bph-mark~="home"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 个人主页：头像、个人中心、空间入口
+ * ------------------------------------------------------------------ */
+html[data-bph-profile="true"] :is(
+  .bili-header .header-avatar-wrap,
+  .bili-header .header-avatar,
+  .bili-header .right-entry--avatar,
+  .bili-header .right-entry-item:has(.header-avatar-wrap),
+  .bili-header .right-entry-item:has(.header-avatar),
+  .bili-header .right-entry-item:has(.bili-avatar),
+  .bili-header .nav-user-center .user-context,
+  .bili-header a[href*="space.bilibili.com"],
+  #biliHeader .header-avatar-wrap,
+  #biliHeader .header-avatar,
+  #biliHeader .right-entry--avatar,
+  #biliHeader .right-entry-item:has(.header-avatar-wrap),
+  #biliHeader .right-entry-item:has(.header-avatar),
+  #biliHeader .right-entry-item:has(.bili-avatar),
+  #biliHeader .nav-user-center .user-context,
+  #biliHeader a[href*="space.bilibili.com"],
+  [data-bph-mark~="profile"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 历史记录
+ * ------------------------------------------------------------------ */
+html[data-bph-history="true"] :is(
+  .bili-header .right-entry--history,
+  .bili-header .header-history,
+  .bili-header .right-entry-item:has(a[href*="/history"]),
+  .bili-header a[href*="/history"],
+  #biliHeader .right-entry--history,
+  #biliHeader .header-history,
+  #biliHeader .right-entry-item:has(a[href*="/history"]),
+  #biliHeader a[href*="/history"],
+  a[href*="/account/history"],
+  a[href*="/history"],
+  [data-bph-mark~="history"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 收藏夹
+ * ------------------------------------------------------------------ */
+html[data-bph-favorites="true"] :is(
+  .bili-header .right-entry--favorite,
+  .bili-header .right-entry--fav,
+  .bili-header .header-fav,
+  .bili-header .header-favorite,
+  .bili-header .right-entry-item:has(a[href*="/medialist"]),
+  .bili-header .right-entry-item:has(a[href*="/favlist"]),
+  .bili-header a[href*="/medialist"],
+  .bili-header a[href*="/favlist"],
+  #biliHeader .right-entry--favorite,
+  #biliHeader .right-entry--fav,
+  #biliHeader .header-fav,
+  #biliHeader .header-favorite,
+  #biliHeader .right-entry-item:has(a[href*="/medialist"]),
+  #biliHeader .right-entry-item:has(a[href*="/favlist"]),
+  #biliHeader a[href*="/medialist"],
+  #biliHeader a[href*="/favlist"],
+  a[href*="/medialist"],
+  a[href*="/favlist"],
+  [data-bph-mark~="favorites"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 追番
+ * ------------------------------------------------------------------ */
+html[data-bph-bangumi="true"] :is(
+  .bili-header .right-entry--bangumi,
+  .bili-header .header-bangumi,
+  .bili-header .right-entry-item:has(a[href*="space.bilibili.com"][href*="/bangumi"]),
+  .bili-header a[href*="space.bilibili.com"][href*="/bangumi"],
+  .bili-header a[href*="/anime"],
+  #biliHeader .right-entry--bangumi,
+  #biliHeader .header-bangumi,
+  #biliHeader .right-entry-item:has(a[href*="space.bilibili.com"][href*="/bangumi"]),
+  #biliHeader a[href*="space.bilibili.com"][href*="/bangumi"],
+  #biliHeader a[href*="/anime"],
+  [data-bph-mark~="bangumi"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 投稿 / 投稿管理
+ * ------------------------------------------------------------------ */
+html[data-bph-submissions="true"] :is(
+  .bili-header .upload-entry,
+  .bili-header .upload-btn,
+  .bili-header .nav-upload,
+  .bili-header a[href*="member.bilibili.com"][href*="/upload"],
+  .bili-header a[href*="member.bilibili.com"][href*="/archive"],
+  #biliHeader .upload-entry,
+  #biliHeader .upload-btn,
+  #biliHeader .nav-upload,
+  #biliHeader a[href*="member.bilibili.com"][href*="/upload"],
+  #biliHeader a[href*="member.bilibili.com"][href*="/archive"],
+  a[href*="member.bilibili.com"][href*="/upload"],
+  a[href*="member.bilibili.com"][href*="/archive"],
+  [data-bph-mark~="submissions"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 创作中心
+ * ------------------------------------------------------------------ */
+html[data-bph-creator="true"] :is(
+  .bili-header .right-entry--create,
+  .bili-header .right-entry--creator,
+  .bili-header .header-create,
+  .bili-header .creator-center,
+  .bili-header a[href*="member.bilibili.com/platform/home"],
+  #biliHeader .right-entry--create,
+  #biliHeader .right-entry--creator,
+  #biliHeader .header-create,
+  #biliHeader .creator-center,
+  #biliHeader a[href*="member.bilibili.com/platform/home"],
+  a[href*="member.bilibili.com/platform/home"],
+  [data-bph-mark~="creator"]
+) {
+  display: none !important;
+}
+
+/* 被脚本判定为隐私入口的节点，统一不参与排版和键盘焦点 */
+[data-bph-mark] {
+  pointer-events: none !important;
+}

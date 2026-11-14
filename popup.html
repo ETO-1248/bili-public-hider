@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BiliPublicHider</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="loadingView" class="loading-view" role="status" aria-live="polite">
+    <img src="icons/icon48.png" alt="" class="loading-icon">
+    <span>正在读取设置…</span>
+  </div>
+
+  <main id="appView" class="app" hidden>
+    <header class="hero">
+      <div class="brand">
+        <img src="icons/icon48.png" class="brand-icon" alt="">
+        <div class="brand-copy">
+          <h1>BiliPublicHider</h1>
+          <p>B站公共大屏隐私隐藏</p>
+        </div>
+      </div>
+      <div class="header-tools">
+        <span id="saveBadge" class="save-badge" role="status" aria-live="polite"></span>
+        <a class="about-chip" href="about.html" target="_blank" rel="noopener">关于</a>
+      </div>
+    </header>
+
+    <section class="power-card" aria-labelledby="powerTitle">
+      <div class="power-copy">
+        <span class="eyebrow">公共大屏模式</span>
+        <strong id="powerTitle">已开启</strong>
+        <p id="powerDesc">已选入口不会出现在页面中</p>
+      </div>
+      <label class="switch switch--large">
+        <input id="enabledInput" type="checkbox" data-setting="enabled">
+        <span class="track"><span class="thumb"></span></span>
+        <span class="sr-only">启用公共大屏模式</span>
+      </label>
+    </section>
+
+    <section class="group" aria-labelledby="interactionTitle">
+      <div class="group-head">
+        <h2 id="interactionTitle">互动防误触</h2>
+        <span>不改动账号数据</span>
+      </div>
+      <div class="card">
+        <div class="row" data-feature="hideTriple">
+          <div class="row-copy">
+            <span class="row-title">视频三连按钮</span>
+            <span class="row-desc">隐藏点赞、投币与收藏按钮</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideTriple">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏视频三连按钮</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="browseTitle">
+      <div class="group-head">
+        <h2 id="browseTitle">浏览入口</h2>
+        <span>清理公共屏幕导航</span>
+      </div>
+      <div class="card card--list">
+        <div class="row" data-feature="hideHome">
+          <div class="row-copy">
+            <span class="row-title">顶栏「首页」</span>
+            <span class="row-desc">隐藏 Logo 与首页入口</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideHome">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏顶栏首页按钮</span>
+          </label>
+        </div>
+
+        <div class="row" data-feature="hideBangumi">
+          <div class="row-copy">
+            <span class="row-title">追番 / 番剧</span>
+            <span class="row-desc">隐藏追番、番剧与我的追番</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideBangumi">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏追番和番剧入口</span>
+          </label>
+        </div>
+
+        <div class="row" data-feature="hideSubmissions">
+          <div class="row-copy">
+            <span class="row-title">投稿</span>
+            <span class="row-desc">隐藏投稿按钮与投稿管理</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideSubmissions">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏投稿入口</span>
+          </label>
+        </div>
+
+        <div class="row" data-feature="hideCreator">
+          <div class="row-copy">
+            <span class="row-title">创作中心</span>
+            <span class="row-desc">隐藏创作中心与创作者后台</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideCreator">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏创作中心入口</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="privacyTitle">
+      <div class="group-head">
+        <h2 id="privacyTitle">个人隐私</h2>
+        <span>每一项均可单独控制</span>
+      </div>
+      <div class="card card--list">
+        <div class="row" data-feature="hideProfile">
+          <div class="row-copy">
+            <span class="row-title">个人主页</span>
+            <span class="row-desc">隐藏头像、个人中心与空间入口</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideProfile">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏个人主页入口</span>
+          </label>
+        </div>
+
+        <div class="row" data-feature="hideHistory">
+          <div class="row-copy">
+            <span class="row-title">历史记录</span>
+            <span class="row-desc">隐藏顶栏与站内历史链接</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideHistory">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏历史记录</span>
+          </label>
+        </div>
+
+        <div class="row" data-feature="hideFavorites">
+          <div class="row-copy">
+            <span class="row-title">收藏夹</span>
+            <span class="row-desc">隐藏顶栏与站内收藏夹链接</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideFavorites">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏收藏夹</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="appearanceTitle">
+      <div class="group-head">
+        <h2 id="appearanceTitle">设置页背景</h2>
+        <span>随机或指定插画</span>
+      </div>
+      <div class="card">
+        <div class="appearance-row">
+          <div id="backgroundPreview" class="background-preview" aria-hidden="true">
+            <span id="backgroundPreviewLabel">无</span>
+          </div>
+          <div class="appearance-copy">
+            <label class="row-title" for="backgroundSelect">背景插画</label>
+            <span id="backgroundDesc" class="row-desc">不使用背景</span>
+          </div>
+          <select id="backgroundSelect" class="background-select" aria-label="设置页背景图">
+            <option value="none">不使用</option>
+            <option value="random">每次随机</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="security-card" aria-labelledby="securityTitle">
+      <div class="security-main">
+        <div class="security-title-line">
+          <h2 id="securityTitle">设置密码</h2>
+          <span id="lockBadge" class="lock-badge">未保护</span>
+        </div>
+        <p id="passwordStatus">未设置 · 任何人都能修改开关</p>
+      </div>
+      <div id="securityActions" class="security-actions"></div>
+    </section>
+
+    <footer class="footer">
+      <button id="resetButton" type="button" class="text-button">恢复默认</button>
+      <span class="footer-note">仅本机生效 · 不收集数据</span>
+    </footer>
+  </main>
+
+  <section id="lockView" class="lock-view" hidden>
+    <div class="lock-hero">
+      <img src="icons/icon128.png" alt="" class="lock-app-icon">
+      <div class="lock-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+          <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+        </svg>
+      </div>
+    </div>
+    <h1>设置已锁定</h1>
+    <p class="lock-desc">输入设置密码后，才能修改 BiliPublicHider 的隐藏选项。</p>
+
+    <form id="unlockForm" class="unlock-form" novalidate>
+      <label for="unlockPassword">设置密码</label>
+      <div class="password-field">
+        <input id="unlockPassword" type="password" autocomplete="current-password" maxlength="64" placeholder="输入密码" required>
+        <button id="toggleUnlockPassword" type="button" class="reveal-button" aria-label="显示密码">显示</button>
+      </div>
+      <p id="unlockError" class="form-error" role="alert" hidden></p>
+      <button id="unlockButton" type="submit" class="primary-button">解锁设置</button>
+    </form>
+
+    <button id="forgotButton" type="button" class="link-button">忘记密码？</button>
+    <p class="lock-foot">密码只保存在本机，用于防止日常误改。</p>
+  </section>
+
+  <dialog id="passwordDialog" class="dialog">
+    <form id="passwordForm" novalidate>
+      <div class="dialog-head">
+        <div>
+          <h2 id="dialogTitle">设置密码</h2>
+          <p id="dialogDesc">设置后，打开弹窗需要先输入密码。</p>
+        </div>
+        <button id="dialogClose" type="button" class="icon-button" aria-label="关闭">×</button>
+      </div>
+
+      <div id="currentPasswordField" class="field" hidden>
+        <label for="currentPassword">当前密码</label>
+        <input id="currentPassword" type="password" autocomplete="current-password" maxlength="64">
+      </div>
+
+      <div id="newPasswordFields">
+        <div class="field">
+          <label for="newPassword">新密码</label>
+          <input id="newPassword" type="password" autocomplete="new-password" maxlength="64" placeholder="至少 4 位">
+        </div>
+        <div class="field">
+          <label for="confirmPassword">确认新密码</label>
+          <input id="confirmPassword" type="password" autocomplete="new-password" maxlength="64" placeholder="再次输入">
+        </div>
+      </div>
+
+      <p id="dialogError" class="form-error" role="alert" hidden></p>
+
+      <div class="dialog-actions">
+        <button id="dialogCancel" type="button" class="secondary-button">取消</button>
+        <button id="dialogSubmit" type="submit" class="primary-button">保存密码</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="helpDialog" class="dialog help-dialog">
+    <div class="dialog-head">
+      <div>
+        <h2>忘记密码怎么办？</h2>
+        <p>密码不会上传，也没有找回服务器。</p>
+      </div>
+      <button id="helpClose" type="button" class="icon-button" aria-label="关闭">×</button>
+    </div>
+    <div class="help-body">
+      <p>如果确实忘记密码，只能移除并重新安装本扩展，这会同时清除全部设置：</p>
+      <ol>
+        <li>打开 <code>chrome://extensions</code></li>
+        <li>移除 BiliPublicHider</li>
+        <li>重新加载扩展文件夹</li>
+      </ol>
+      <p class="help-warning">设置密码用于防止日常误改，无法抵御能打开开发者工具或系统文件的人。</p>
+    </div>
+    <div class="dialog-actions">
+      <button id="helpDone" type="button" class="primary-button">知道了</button>
+    </div>
+  </dialog>
+
+  <script src="backgrounds.js"></script>
+  <script src="password.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

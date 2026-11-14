@@ -1,0 +1,305 @@
+:root {
+  color-scheme: light;
+  --text: #252027;
+  --muted: #746b75;
+  --line: #e6e1e4;
+  --code-bg: #f7f5f6;
+  --accent: #c64a71;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: #1b171d;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text);
+  background: #1b171d;
+  font-family: "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-background-shade {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(24, 18, 27, 0.12), rgba(24, 18, 27, 0.52)),
+    linear-gradient(180deg, rgba(20, 15, 22, 0.22), rgba(20, 15, 22, 0.58));
+}
+
+.page {
+  position: relative;
+  z-index: 2;
+  width: min(800px, calc(100% - 40px));
+  margin: 36px auto;
+  padding: 30px 34px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.77);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.context {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  margin: 3px 0 0;
+  font-size: 25px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 8px;
+}
+
+.version {
+  padding: 3px 7px;
+  border-radius: 4px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.5);
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 10px;
+}
+
+.shuffle-button {
+  padding: 4px 9px;
+  border: 1px solid #e5c8d3;
+  border-radius: 5px;
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.65);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.shuffle-button:hover {
+  border-color: #dcaec0;
+  background: #fff;
+}
+
+.shuffle-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+section {
+  margin-top: 34px;
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.meta {
+  margin: -4px 0 12px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.link-list {
+  margin: 0;
+}
+
+.link-list > div {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.link-list > div:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.link-list dt {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.link-list dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 12.5px;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: #a9365b;
+}
+
+.external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+}
+
+.external-link span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.link-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+.github-icon {
+  color: #181717;
+}
+
+.bilibili-icon {
+  color: #fb7299;
+}
+
+pre {
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--code-bg);
+  color: var(--text);
+  font-family: "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+  font-size: 11.5px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.license-text--zh {
+  font-family: "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  margin-top: 42px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media (max-width: 560px) {
+  .page {
+    width: calc(100% - 24px);
+    margin: 16px auto;
+    padding: 22px 17px 24px;
+    border-radius: 8px;
+  }
+
+  .page-header {
+    gap: 12px;
+  }
+
+  .link-list > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: 9px 0;
+  }
+
+  pre {
+    padding: 13px;
+    font-size: 11px;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 3px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --text: #eee7eb;
+    --muted: #a99da4;
+    --line: #373137;
+    --code-bg: #211d21;
+    --accent: #f08cac;
+  }
+
+  body {
+    background: #171517;
+  }
+
+  .page {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(23, 19, 23, 0.78);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+  }
+
+  .version {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .shuffle-button {
+    border-color: #5a3b47;
+    color: #f39bbb;
+    background: rgba(30, 22, 28, 0.7);
+  }
+
+  .shuffle-button:hover {
+    border-color: #78505f;
+    background: #3a2832;
+  }
+
+  a:hover {
+    color: #ffb3c9;
+  }
+
+  .github-icon {
+    color: #f0f6fc;
+  }
+}

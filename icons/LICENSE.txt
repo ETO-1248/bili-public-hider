@@ -1,0 +1,17 @@
+BiliPublicHider application icon
+================================
+
+Original artwork created for this project: a pink shield with a play symbol.
+No third-party artwork, fonts, or trademarks are included.
+
+The icon source (icon.svg) and all generated PNG files in this directory are
+dedicated to the public domain under CC0 1.0 Universal:
+
+  https://creativecommons.org/publicdomain/zero/1.0/
+
+To the extent possible under law, the authors have waived all copyright and
+related or neighboring rights to this artwork. You may copy, modify, distribute,
+and use it for any purpose without attribution.
+
+The name "BiliPublicHider" and the project code are covered by the repository's
+MIT License, not this CC0 dedication.

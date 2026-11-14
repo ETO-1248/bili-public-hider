@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  BiliPublicHider application icon.
+  Original artwork, dedicated to the public domain under CC0 1.0.
+  https://creativecommons.org/publicdomain/zero/1.0/
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="BiliPublicHider shield and play icon">
+  <rect width="512" height="512" rx="113" fill="#FB7299"/>
+  <circle cx="447" cy="28" r="120" fill="#FF9EBB" fill-opacity="0.31"/>
+  <circle cx="469" cy="372" r="98" fill="#E8527F" fill-opacity="0.18"/>
+  <path d="M256 75C295 99 334 110 380 114V176C380 262 331 330 256 380C181 330 132 262 132 176V114C178 110 217 99 256 75Z" fill="#FFFFFF"/>
+  <circle cx="256" cy="232" r="75" fill="#F25D86"/>
+  <path d="M237 195L237 270L303 232.5Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

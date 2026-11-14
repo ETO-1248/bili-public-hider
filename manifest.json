@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "BiliPublicHider — B站公共大屏隐私隐藏",
+  "short_name": "BiliPublicHider",
+  "version": "1.0.0",
+  "description": "教室与公用设备专用：隐藏视频三连按钮、首页、个人主页、历史、收藏夹、追番、投稿和创作中心入口，支持设置密码锁定。",
+  "minimum_chrome_version": "105",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "*://bilibili.com/*",
+    "*://*.bilibili.com/*"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "BiliPublicHider",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_ui": {
+    "page": "popup.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://bilibili.com/*",
+        "*://*.bilibili.com/*"
+      ],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ]
+}
