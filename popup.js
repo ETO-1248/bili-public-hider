@@ -19,7 +19,6 @@
   const DEFAULT_SETTINGS = Object.freeze({
     enabled: true,
     hideTriple: true,
-    hideHome: true,
     hideProfile: true,
     hideHistory: true,
     hideFavorites: true,
@@ -27,7 +26,9 @@
     hideSubmissions: true,
     hideCreator: true,
     hideDynamics: true,
-    hideMessages: true
+    hideMessages: true,
+    hideLikes: true,
+    hideSpaceVideos: true
   });
 
   const els = {

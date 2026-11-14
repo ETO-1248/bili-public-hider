@@ -23,6 +23,7 @@
       </div>
       <div class="header-tools">
         <span id="saveBadge" class="save-badge" role="status" aria-live="polite"></span>
+        <a class="about-chip" href="welcome.html" target="_blank" rel="noopener">向导</a>
         <a class="about-chip" href="about.html" target="_blank" rel="noopener">关于</a>
       </div>
     </header>
@@ -66,18 +67,6 @@
         <span>清理公共屏幕导航</span>
       </div>
       <div class="card card--list">
-        <div class="row" data-feature="hideHome">
-          <div class="row-copy">
-            <span class="row-title">顶栏「首页」</span>
-            <span class="row-desc">隐藏 Logo 与首页入口</span>
-          </div>
-          <label class="switch">
-            <input type="checkbox" data-setting="hideHome">
-            <span class="track"><span class="thumb"></span></span>
-            <span class="sr-only">隐藏顶栏首页按钮</span>
-          </label>
-        </div>
-
         <div class="row" data-feature="hideBangumi">
           <div class="row-copy">
             <span class="row-title">追番 / 番剧</span>
@@ -155,6 +144,30 @@
             <input type="checkbox" data-setting="hideFavorites">
             <span class="track"><span class="thumb"></span></span>
             <span class="sr-only">隐藏收藏夹</span>
+          </label>
+        </div>
+
+        <div class="row" data-feature="hideLikes">
+          <div class="row-copy">
+            <span class="row-title">点赞记录</span>
+            <span class="row-desc">隐藏空间与个人主页的点赞视频</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideLikes">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏点赞记录</span>
+          </label>
+        </div>
+
+        <div class="row" data-feature="hideSpaceVideos">
+          <div class="row-copy">
+            <span class="row-title">主页投稿视频</span>
+            <span class="row-desc">隐藏个人主页的投稿视频区</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" data-setting="hideSpaceVideos">
+            <span class="track"><span class="thumb"></span></span>
+            <span class="sr-only">隐藏个人主页投稿视频</span>
           </label>
         </div>
 

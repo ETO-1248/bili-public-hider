@@ -30,6 +30,8 @@ html[data-bph-booting] :is(
   .bili-header .right-entry--creator,
   .bili-header .right-entry--dynamic,
   .bili-header .right-entry--message,
+  .bili-header .dynamic-entry,
+  .bili-header .message-entry,
   .bili-header .header-history,
   .bili-header .header-fav,
   .bili-header .header-bangumi,
@@ -40,8 +42,6 @@ html[data-bph-booting] :is(
   .bili-header .upload-entry,
   .bili-header .upload-btn,
   .bili-header .nav-upload,
-  .bili-header .bili-header__logo,
-  .bili-header .left-entry__title,
   .bili-header a[href*="/history"],
   .bili-header a[href*="/medialist"],
   .bili-header a[href*="/favlist"],
@@ -62,6 +62,8 @@ html[data-bph-booting] :is(
   #biliHeader .right-entry--creator,
   #biliHeader .right-entry--dynamic,
   #biliHeader .right-entry--message,
+  #biliHeader .dynamic-entry,
+  #biliHeader .message-entry,
   #biliHeader .header-history,
   #biliHeader .header-fav,
   #biliHeader .header-bangumi,
@@ -124,33 +126,6 @@ html[data-bph-triple="true"] :is(
   .video-toolbar-left [class*="triple"],
   #arc_toolbar_report [class*="triple"],
   [data-bph-mark~="triple"]
-) {
-  display: none !important;
-}
-
-/* ------------------------------------------------------------------
- * 首页按钮：B站顶栏的 Logo / 首页入口
- * ------------------------------------------------------------------ */
-html[data-bph-home="true"] :is(
-  .bili-header .bili-header__logo,
-  .bili-header .logo,
-  .bili-header .header-logo,
-  .bili-header .left-entry__title,
-  .bili-header .home-link,
-  .bili-header .header-home,
-  .bili-header a[href="/"],
-  .bili-header a[href="//www.bilibili.com/"],
-  .bili-header a[href="https://www.bilibili.com/"],
-  #biliHeader .bili-header__logo,
-  #biliHeader .logo,
-  #biliHeader .header-logo,
-  #biliHeader .left-entry__title,
-  #biliHeader .home-link,
-  #biliHeader .header-home,
-  #biliHeader a[href="/"],
-  #biliHeader a[href="//www.bilibili.com/"],
-  #biliHeader a[href="https://www.bilibili.com/"],
-  [data-bph-mark~="home"]
 ) {
   display: none !important;
 }
@@ -221,6 +196,8 @@ html[data-bph-favorites="true"] :is(
   #biliHeader a[href*="/favlist"],
   a[href*="/medialist"],
   a[href*="/favlist"],
+  .fav-section,
+  .home-section:has(.fav-section),
   [data-bph-mark~="favorites"]
 ) {
   display: none !important;
@@ -240,6 +217,8 @@ html[data-bph-bangumi="true"] :is(
   #biliHeader .right-entry-item:has(a[href*="space.bilibili.com"][href*="/bangumi"]),
   #biliHeader a[href*="space.bilibili.com"][href*="/bangumi"],
   #biliHeader a[href*="/anime"],
+  .bangumi-section,
+  .home-section:has(.bangumi-section),
   [data-bph-mark~="bangumi"]
 ) {
   display: none !important;
@@ -291,16 +270,19 @@ html[data-bph-creator="true"] :is(
  * ------------------------------------------------------------------ */
 html[data-bph-dynamics="true"] :is(
   .bili-header .right-entry--dynamic,
+  .bili-header .dynamic-entry,
   .bili-header .header-dynamic,
   .bili-header .header-dynamics,
   .bili-header .nav-dynamic,
   .bili-header a[href*="t.bilibili.com"],
   #biliHeader .right-entry--dynamic,
+  #biliHeader .dynamic-entry,
   #biliHeader .header-dynamic,
   #biliHeader .header-dynamics,
   #biliHeader .nav-dynamic,
   #biliHeader a[href*="t.bilibili.com"],
   a[href*="t.bilibili.com"],
+  .nav-tab__item[href*="/dynamic"],
   [data-bph-mark~="dynamics"]
 ) {
   display: none !important;
@@ -311,13 +293,14 @@ html[data-bph-dynamics="true"] :is(
  * ------------------------------------------------------------------ */
 html[data-bph-messages="true"] :is(
   .bili-header .right-entry--message,
+  .bili-header .message-entry,
   .bili-header .header-message,
   .bili-header .header-msg,
-  .bili-header .message-entry,
   .bili-header .nav-message,
   .bili-header a[href*="message.bilibili.com"],
   .bili-header iframe[src*="message.bilibili.com"],
   #biliHeader .right-entry--message,
+  #biliHeader .message-entry,
   #biliHeader .header-message,
   #biliHeader .header-msg,
   #biliHeader .message-entry,
@@ -327,6 +310,33 @@ html[data-bph-messages="true"] :is(
   a[href*="message.bilibili.com"],
   iframe[src*="message.bilibili.com"],
   [data-bph-mark~="messages"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 点赞记录
+ * ------------------------------------------------------------------ */
+html[data-bph-likes="true"] :is(
+  .like-section,
+  .like-section__content,
+  .home-section:has(.like-section),
+  .space-liked,
+  .space-like-list,
+  .liked-video-list,
+  [data-bph-mark~="likes"]
+) {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+ * 个人主页投稿视频
+ * ------------------------------------------------------------------ */
+html[data-bph-spacevideos="true"] :is(
+  .video-section,
+  .home-section:has(.video-section),
+  .nav-tab__item[href*="/upload"],
+  [data-bph-mark~="spaceVideos"]
 ) {
   display: none !important;
 }

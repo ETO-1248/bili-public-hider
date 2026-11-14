@@ -10,7 +10,7 @@
 
 ## 简体中文
 
-适合教室、会议室、展厅等公用电脑：减少误触三连，并收起个人主页、历史记录、收藏夹、追番、投稿和创作中心等入口。当前版本 **1.0.1**。
+适合教室、会议室、展厅等公用电脑：减少误触三连，并收起个人主页、历史记录、收藏夹、追番、投稿和创作中心等入口。当前版本 **1.1.0**。
 
 - 项目仓库：<https://github.com/ETO-1248/bili-public-hider>
 - 作者 B 站主页：<https://space.bilibili.com/1645082697>
@@ -21,12 +21,13 @@
 | --- | --- | --- |
 | 公共大屏模式 | 开启 | 总开关；关闭后所有隐藏规则暂停 |
 | 视频三连按钮 | 开启 | 隐藏点赞、投币、收藏按钮，避免误触 |
-| 顶栏「首页」 | 开启 | 隐藏 B 站 Logo 与顶栏首页入口 |
 | 个人主页 | 开启 | 隐藏头像、个人中心、空间入口 |
 | 历史记录 | 开启 | 隐藏顶栏、菜单与站内历史链接 |
-| 收藏夹 | 开启 | 隐藏顶栏、菜单与站内收藏夹链接 |
-| 追番 / 番剧 | 开启 | 隐藏追番、番剧与我的追番入口 |
-| 投稿 | 开启 | 隐藏投稿按钮与投稿管理 |
+| 收藏夹 | 开启 | 隐藏顶栏、菜单、收藏夹链接与空间收藏区 |
+| 点赞记录 | 开启 | 隐藏个人主页与空间中的点赞视频 |
+| 主页投稿视频 | 开启 | 隐藏个人主页的投稿视频区 |
+| 追番 / 番剧 | 开启 | 隐藏追番、番剧、我的追番入口与空间追番区 |
+| 投稿入口 | 开启 | 隐藏投稿按钮与投稿管理入口 |
 | 创作中心 | 开启 | 隐藏创作中心与创作者后台 |
 | 动态 | 开启 | 隐藏动态入口及动态页主页链接 |
 | 消息 | 开启 | 隐藏消息、私信与通知入口 |
@@ -36,16 +37,17 @@
 - **关于页面**：弹窗右上角「关于」可查看项目仓库、作者 B 站主页与开源许可；页面每次使用一张内置插画铺满全屏背景。
 - **设置页背景**：设置弹窗和扩展选项页默认随机使用一张内置插画，也可选择关闭或指定。
 - **设置密码**：设置后，打开弹窗需要先解锁，才能修改以上开关。
-- **单独控制**：十个隐藏项可以独立开关，也可以一键暂停全部规则。
+- **首次安装向导**：安装后自动打开，按「全面保护 / 仅防三连 / 只收隐私」快速配置，并可顺手设置密码。
+- **单独控制**：十一个隐藏项可以独立开关，也可以一键暂停全部规则。
 - **自动跟随页面**：使用 `MutationObserver` 监听 B 站单页应用更新，切换视频、打开新页面后仍然生效。
-- **点击兜底**：即使 B 站改版导致样式选择器失效，脚本也会拦截指向历史记录、收藏夹、追番、投稿、创作中心、动态和消息等页面的可见链接点击。
+- **点击兜底**：即使 B 站改版导致样式选择器失效，脚本也会拦截指向历史记录、收藏夹、点赞记录、追番、投稿、创作中心、动态和消息等页面的可见链接点击。
 - **不联网、不收集数据**：权限只有 `storage`，没有网络请求、没有遥测。
 
 ### 安装
 
 #### Chrome / Edge / 其他 Chromium 浏览器
 
-1. 解压 `BiliPublicHider-v1.0.1.zip`，得到 `BiliPublicHider` 文件夹。
+1. 解压 `BiliPublicHider-v1.1.0.zip`，得到 `BiliPublicHider` 文件夹。
 2. 打开 `chrome://extensions`（Edge 为 `edge://extensions`）。
 3. 打开右上角的「开发者模式」。
 4. 点击「加载已解压的扩展程序」，选择 `BiliPublicHider` 文件夹。
@@ -54,6 +56,17 @@
 要求 Chromium 105 或更高版本（使用了 `:has()` 选择器）。
 
 扩展选项页可从 `chrome://extensions` → BiliPublicHider →「扩展选项」打开；它和工具栏弹窗共用设置、密码状态与背景图。
+
+### 首次设置向导
+
+初次安装或浏览器启动时会自动打开 `welcome.html` 设置向导：
+
+- **全面保护**：默认开启全部 11 项隐藏规则。
+- **仅防三连**：只隐藏点赞、投币和收藏按钮。
+- **只收隐私**：隐藏主页、历史、收藏、点赞、投稿视频、追番、动态和消息等私人内容，保留互动按钮。
+- **可选密码**：在向导最后一步设置；不设置也可以直接完成。
+- 完成后会记录 `bphOnboardingDone`，以后启动不再自动打开。点「跳过向导」也会记录完成状态。
+- 弹窗「关于」旁新增「向导」入口，可随时重新运行；如果已经设置密码，需要先输入密码解锁。
 
 ### 设置密码
 
@@ -78,7 +91,7 @@
 
 - 适配 B 站网页端当前常见的顶栏和视频工具栏结构，并对按钮文字做了兜底识别。
 - 如果 B 站大改版导致某个入口仍然显示，可以提交页面结构或选择器，更新 `content.css` / `content.js`。
-- **不拦截地址栏直接输入**：本扩展隐藏的是页面入口和可见链接，不会阻止在地址栏手动输入历史记录、收藏夹、个人追番、创作者后台、动态或消息地址。若要彻底阻断，需要配合浏览器的 URL 拦截策略（如企业策略 `URLBlocklist`）。
+- **不拦截地址栏直接输入**：本扩展隐藏的是页面入口和可见链接，不会阻止在地址栏手动输入历史记录、收藏夹、点赞记录、个人追番、个人投稿、创作者后台、动态或消息地址。若要彻底阻断，需要配合浏览器的 URL 拦截策略（如企业策略 `URLBlocklist`）。
 - 不处理移动端网页、B 站客户端或第三方嵌入播放器。
 - 收藏夹相关规则会隐藏包含 `medialist` / `favlist` 的站内链接，可能同时隐藏合集/收藏列表入口，这是有意的隐私保护行为。
 - 「追番 / 番剧」会同时隐藏顶栏的「番剧」公共导航；「创作中心」会隐藏创作中心相关链接；「投稿」会隐藏上传/投稿管理链接。
@@ -96,7 +109,11 @@
 
 ```text
 BiliPublicHider/
-├── manifest.json          # Manifest V3，版本 1.0.1
+├── manifest.json          # Manifest V3，版本 1.1.0
+├── background.js          # 首次安装/启动时打开设置向导
+├── welcome.html           # 首次设置向导
+├── welcome.css
+├── welcome.js
 ├── content.js             # 页面扫描、隐藏与链接拦截
 ├── content.css            # 所有隐藏规则（默认不生效，按设置开启）
 ├── popup.html             # 设置弹窗 / 扩展选项页
@@ -131,6 +148,7 @@ node tests/password.test.js
 node tests/popup.test.js
 node tests/content.test.js
 node tests/about.test.js
+node tests/background.test.js
 ```
 
 ### 图标素材
@@ -152,7 +170,7 @@ node tests/about.test.js
 
 ## English
 
-A privacy-focused extension for shared and public computers running Bilibili, such as classroom, meeting-room, and exhibition machines. It prevents accidental triple actions and hides entry points to the user's profile, history, favorites, anime list, uploads, and Creator Center. Current version: **1.0.1**.
+A privacy-focused extension for shared and public computers running Bilibili, such as classroom, meeting-room, and exhibition machines. It prevents accidental triple actions and hides entry points to the user's profile, history, favorites, anime list, uploads, and Creator Center. Current version: **1.1.0**.
 
 - Repository: <https://github.com/ETO-1248/bili-public-hider>
 - Author on Bilibili: <https://space.bilibili.com/1645082697>
@@ -163,12 +181,13 @@ A privacy-focused extension for shared and public computers running Bilibili, su
 | --- | --- | --- |
 | Public-screen mode | On | Master switch; turning it off suspends every hiding rule |
 | Triple-action buttons | On | Hides Like, Coin, and Favorite buttons to prevent accidental clicks |
-| Top-bar Home | On | Hides the Bilibili logo and Home entry |
 | Profile | On | Hides the avatar, personal center, and profile-space entries |
 | History | On | Hides the top-bar, menu, and in-site history links |
-| Favorites | On | Hides the top-bar, menu, and in-site favorites links |
-| Anime | On | Hides anime tracking, the anime nav, and "My Anime" entries |
-| Uploads | On | Hides upload buttons and upload management |
+| Favorites | On | Hides favorites links and the favorites area on profile pages |
+| Liked videos | On | Hides liked videos on profile and space pages |
+| Profile uploads | On | Hides the uploaded-video area on profile home pages |
+| Anime | On | Hides anime tracking, the anime nav, "My Anime", and the anime area on profile pages |
+| Upload entry | On | Hides upload buttons and upload-management entries |
 | Creator Center | On | Hides Creator Center and creator-dashboard entries |
 | Dynamics | On | Hides the Dynamics entry and profile links on the Dynamics page |
 | Messages | On | Hides messages, direct messages, and notification entries |
@@ -178,16 +197,17 @@ Additional behavior:
 - **About page**: the "About" button in the popup opens the repository, the author's Bilibili profile, and the open-source licenses, with a random built-in illustration filling the page background.
 - **Settings-page background**: the popup and extension options page use a random built-in illustration by default; you can also disable it or pick a specific image.
 - **Settings password**: when set, the popup must be unlocked before any toggle can be changed.
-- **Independent controls**: the ten hiding toggles can be used separately, or all suspended with the master switch.
+- **First-run wizard**: opens automatically after installation with Full protection, Triple-action only, and Privacy-only presets, plus an optional password.
+- **Independent controls**: the eleven hiding toggles can be used separately, or all suspended with the master switch.
 - **SPA-aware**: a `MutationObserver` keeps the rules applied while navigating between videos and pages.
-- **Click fallback**: if Bilibili changes its markup and a selector no longer matches, visible links to history, favorites, anime, uploads, Creator Center, Dynamics, and Messages are still blocked.
+- **Click fallback**: if Bilibili changes its markup and a selector no longer matches, visible links to history, favorites, liked videos, anime, uploads, Creator Center, Dynamics, and Messages are still blocked.
 - **No network, no telemetry**: the only permission is `storage`.
 
 ### Installation
 
 #### Chrome / Edge / other Chromium browsers
 
-1. Extract `BiliPublicHider-v1.0.1.zip` to a folder named `BiliPublicHider`.
+1. Extract `BiliPublicHider-v1.1.0.zip` to a folder named `BiliPublicHider`.
 2. Open `chrome://extensions` (or `edge://extensions`).
 3. Enable **Developer mode** in the top-right corner.
 4. Click **Load unpacked** and select the `BiliPublicHider` folder.
@@ -196,6 +216,17 @@ Additional behavior:
 Requires Chromium 105 or newer (the styles use `:has()`).
 
 Open the extension options page from `chrome://extensions` → BiliPublicHider → **Extension options**. It shares settings, password state, and background selection with the toolbar popup.
+
+### First-run setup wizard
+
+On first installation or browser startup, `welcome.html` opens automatically:
+
+- **Full protection**: enables all 11 hiding rules.
+- **Triple-action only**: hides only Like, Coin, and Favorite buttons.
+- **Privacy only**: hides private profile, history, favorites, liked videos, profile uploads, anime, Dynamics, and Messages content while keeping interaction buttons.
+- **Optional password**: configure it on the final step; it can also be left blank.
+- Finishing stores `bphOnboardingDone`, so the wizard will not open automatically again. **Skip wizard** also marks onboarding as complete.
+- A **Wizard** link next to **About** in the popup reruns the setup at any time; if a settings password is configured, it must be entered first.
 
 ### Settings password
 
@@ -220,7 +251,7 @@ Passwords are derived with **PBKDF2-SHA-256, 210,000 iterations, and a random 16
 
 - Targets the current common Bilibili header and video-toolbar structure, with text-based fallbacks for buttons.
 - If a Bilibili redesign leaves an entry visible, open an issue with the page structure or selectors so `content.css` / `content.js` can be updated.
-- **Direct address-bar navigation is not blocked**: the extension hides entries and visible links, but it does not prevent manually typing a history, favorites, personal anime, creator-dashboard, Dynamics, or Messages URL. Combine it with browser URL policies (for example, enterprise `URLBlocklist`) if hard blocking is required.
+- **Direct address-bar navigation is not blocked**: the extension hides entries and visible links, but it does not prevent manually typing a history, favorites, liked-video, personal anime, personal uploads, creator-dashboard, Dynamics, or Messages URL. Combine it with browser URL policies (for example, enterprise `URLBlocklist`) if hard blocking is required.
 - Mobile pages, the Bilibili desktop app, and third-party embedded players are not covered.
 - Favorites rules hide in-site links containing `medialist` / `favlist`, which may also hide collection or playlist entries by design.
 - The Anime toggle also hides the public "Anime" nav in the header; Creator Center hides creator-related links; Uploads hides upload and upload-management links.
@@ -238,7 +269,11 @@ The **About** button in the popup opens `about.html`, which contains:
 
 ```text
 BiliPublicHider/
-├── manifest.json          # Manifest V3, version 1.0.1
+├── manifest.json          # Manifest V3, version 1.1.0
+├── background.js          # Opens the setup wizard on install/startup
+├── welcome.html           # First-run setup wizard
+├── welcome.css
+├── welcome.js
 ├── content.js             # Page scanning, hiding, and link blocking
 ├── content.css            # All hiding rules (inactive until enabled)
 ├── popup.html             # Settings popup / extension options page
@@ -273,6 +308,7 @@ node tests/password.test.js
 node tests/popup.test.js
 node tests/content.test.js
 node tests/about.test.js
+node tests/background.test.js
 ```
 
 ### Icon

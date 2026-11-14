@@ -8,7 +8,6 @@
   const DEFAULT_SETTINGS = Object.freeze({
     enabled: true,
     hideTriple: true,
-    hideHome: true,
     hideProfile: true,
     hideHistory: true,
     hideFavorites: true,
@@ -16,12 +15,13 @@
     hideSubmissions: true,
     hideCreator: true,
     hideDynamics: true,
-    hideMessages: true
+    hideMessages: true,
+    hideLikes: true,
+    hideSpaceVideos: true
   });
 
   const FEATURE_KEYS = [
     'triple',
-    'home',
     'profile',
     'history',
     'favorites',
@@ -29,11 +29,12 @@
     'submissions',
     'creator',
     'dynamics',
-    'messages'
+    'messages',
+    'likes',
+    'spacevideos'
   ];
   const FEATURE_SETTING = {
     triple: 'hideTriple',
-    home: 'hideHome',
     profile: 'hideProfile',
     history: 'hideHistory',
     favorites: 'hideFavorites',
@@ -41,7 +42,9 @@
     submissions: 'hideSubmissions',
     creator: 'hideCreator',
     dynamics: 'hideDynamics',
-    messages: 'hideMessages'
+    messages: 'hideMessages',
+    likes: 'hideLikes',
+    spacevideos: 'hideSpaceVideos'
   };
 
   const HEADER_SELECTOR = [
@@ -59,6 +62,9 @@
     '[role="button"]',
     'li',
     '.right-entry-item',
+    '.right-entry__item',
+    '.dynamic-entry',
+    '.message-entry',
     '.left-entry__title',
     '.header-entry',
     '.nav-item'
@@ -100,7 +106,6 @@
     for (const key of [
       'enabled',
       'hideTriple',
-      'hideHome',
       'hideProfile',
       'hideHistory',
       'hideFavorites',
@@ -108,7 +113,9 @@
       'hideSubmissions',
       'hideCreator',
       'hideDynamics',
-      'hideMessages'
+      'hideMessages',
+      'hideLikes',
+      'hideSpaceVideos'
     ]) {
       result[key] = typeof source[key] === 'boolean' ? source[key] : DEFAULT_SETTINGS[key];
     }
@@ -215,7 +222,6 @@
   function headerFeature(text) {
     const value = normalize(text);
     if (!value || value.length > 12) return null;
-    if (value === '首页') return 'home';
     if (/^(个人中心|我的主页|我的空间|个人空间|个人主页)$/.test(value)) return 'profile';
     if (/^(历史|历史记录)$/.test(value)) return 'history';
     if (/^(收藏|收藏夹|我的收藏)$/.test(value)) return 'favorites';
@@ -270,25 +276,12 @@
     ].join(', ')) || element;
   }
 
-  function isHomeUrl(anchor) {
-    try {
-      const url = new URL(anchor.href, location.href);
-      return (url.hostname === 'www.bilibili.com' || url.hostname === 'bilibili.com') &&
-        url.pathname === '/';
-    } catch {
-      return false;
-    }
-  }
-
   function scanHeader() {
     const headers = new Set(document.querySelectorAll(HEADER_SELECTOR));
 
     for (const header of headers) {
       for (const anchor of header.querySelectorAll('a[href]')) {
         const href = anchor.getAttribute('href') || '';
-        if (settings.hideHome && (href === '/' || isHomeUrl(anchor))) {
-          mark(anchor, 'home');
-        }
         if (settings.hideProfile && href.includes('space.bilibili.com')) {
           mark(anchor, 'profile');
         }
@@ -342,6 +335,120 @@
     });
   }
 
+  function spaceSectionTarget(element) {
+    const tab = element.closest('[role="tab"], .nav-tab__item, .space-nav-item, [class*="tab-item"], [class*="nav-item"]');
+    if (tab) return tab;
+    if (element.matches('a, button, [role="button"]')) return element;
+
+    // 从标题向上找同时包含标题和视频/卡片列表的最小容器，
+    // 避免只把标题文字隐藏掉、视频卡片仍留在页面上。
+    let node = element.parentElement;
+    let fallback = node;
+    for (let depth = 0; node && depth < 7; depth += 1, node = node.parentElement) {
+      if (node === document.body || node === document.documentElement) break;
+      const videoCount = node.querySelectorAll(
+        'a[href*="/video/"], a[href*="/bangumi/"], [class*="video-card"]'
+      ).length;
+      const listCount = node.querySelectorAll(
+        'a[href*="/favlist"], a[href*="/bangumi/"], a[href*="/liked"]'
+      ).length;
+      if (videoCount > 0 || listCount > 1) {
+        return node;
+      }
+      fallback = node;
+    }
+    return fallback || element.parentElement || element;
+  }
+
+  function hideSpaceMediaAfter(start, boundary, feature) {
+    const mediaLinks = document.querySelectorAll([
+      'a[href*="/video/"]',
+      'a[href*="/favlist"]',
+      'a[href*="/bangumi/"]',
+      'a[href*="/liked"]',
+      '[class*="video-card"]',
+      '[class*="fav-item"]',
+      '[class*="bangumi-item"]',
+      '[class*="bangumi-card"]'
+    ].join(', '));
+    let marked = 0;
+    for (const link of mediaLinks) {
+      if (!(start.compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING)) continue;
+      if (boundary && !(link.compareDocumentPosition(boundary) & Node.DOCUMENT_POSITION_FOLLOWING)) continue;
+      const card = link.closest('[class*="video-card"], [class*="card"], li, article') || link;
+      mark(card, feature);
+      marked += 1;
+      if (marked >= 120) break;
+    }
+  }
+
+  function scanSpacePrivacySections() {
+    if (location.hostname !== 'space.bilibili.com') return;
+
+    const sections = [
+      {
+        feature: 'favorites',
+        prefixes: ['TA的收藏夹', '我的收藏夹', '收藏夹', '收藏']
+      },
+      {
+        feature: 'bangumi',
+        prefixes: ['TA的追番追剧', 'TA的追番', '我的追番', '追番追剧', '追番']
+      },
+      {
+        feature: 'likes',
+        prefixes: ['最近点赞的视频', '点赞的视频', 'TA的点赞', '我的点赞', '最近点赞', '点赞']
+      }
+    ];
+
+    const candidates = document.querySelectorAll([
+      'a',
+      'button',
+      '[role="button"]',
+      '[role="tab"]',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      '[class*="section-title"]',
+      '[class*="module-title"]',
+      '[class*="nav-title"]',
+      '[class*="tab-title"]',
+      '[class*="nav-tab"]',
+      '[class*="title"]'
+    ].join(', '));
+
+    const boundaries = Array.from(document.querySelectorAll(
+      'h1, h2, h3, h4, [class*="section-title"], [class*="module-title"]'
+    ));
+
+    for (const element of candidates) {
+      if (!settings.enabled) return;
+      if (element.matches('.nav-tab, .nav-bar, .nav-bar__main, .nav-bar__main-left')) continue;
+      const text = normalize(element.innerText);
+      if (!text || text.length > 40) continue;
+      const tabLike = element.matches('a, button, [role="button"], [role="tab"]') ||
+        Boolean(element.closest('.nav-tab__item, .space-nav-item, [class*="tab-item"], [class*="nav-item"]'));
+
+      for (const section of sections) {
+        if (!settings[FEATURE_SETTING[section.feature]]) continue;
+        if (!section.prefixes.some((prefix) => text.startsWith(prefix))) continue;
+
+        const target = spaceSectionTarget(element);
+        mark(target, section.feature);
+        if (tabLike) continue;
+
+        const boundary = boundaries.find((heading) =>
+          heading !== element &&
+          !heading.closest('[class*="video-card"], [class*="card"]') &&
+          !element.contains(heading) &&
+          !heading.contains(element) &&
+          (element.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING)
+        );
+        hideSpaceMediaAfter(element, boundary || null, section.feature);
+      }
+    }
+  }
+
   function clearActiveMarks() {
     for (const feature of FEATURE_KEYS) {
       if (settings.enabled && settings[FEATURE_SETTING[feature]]) {
@@ -355,13 +462,16 @@
     // 先清掉本轮标记，避免 B 站复用节点后留下过期隐藏。
     clearActiveMarks();
     if (settings.hideTriple) scanTriple();
-    if (settings.hideHome || settings.hideProfile || settings.hideHistory ||
+    if (settings.hideProfile || settings.hideHistory ||
       settings.hideFavorites || settings.hideBangumi || settings.hideSubmissions ||
       settings.hideCreator || settings.hideDynamics || settings.hideMessages) {
       scanHeader();
     }
     if (settings.hideBangumi) scanPersonalBangumiLinks();
     if (settings.hideProfile) scanDynamicPageProfileLinks();
+    if (settings.hideFavorites || settings.hideBangumi || settings.hideLikes) {
+      scanSpacePrivacySections();
+    }
   }
 
   function scheduleScan() {
@@ -400,7 +510,21 @@
         (url.pathname.includes('/upload') || url.pathname.includes('/archive'));
       const dynamicsPage = url.hostname === 't.bilibili.com';
       const messagesPage = url.hostname === 'message.bilibili.com';
+      const likesPage = url.hostname === 'space.bilibili.com' &&
+        /\/liked\/?$/.test(url.pathname);
+      const spaceUploadPage = url.hostname === 'space.bilibili.com' &&
+        /\/upload\/?$/.test(url.pathname);
 
+      if (settings.enabled && settings.hideSpaceVideos && spaceUploadPage) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
+      if (settings.enabled && settings.hideLikes && likesPage) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
       if (settings.enabled && settings.hideDynamics && dynamicsPage) {
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -438,13 +562,6 @@
       }
       if (settings.enabled && settings.hideProfile && inHeader &&
         url.hostname === 'space.bilibili.com') {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        return;
-      }
-      if (settings.enabled && settings.hideHome && inHeader &&
-        (url.hostname === 'www.bilibili.com' || url.hostname === 'bilibili.com') &&
-        url.pathname === '/') {
         event.preventDefault();
         event.stopImmediatePropagation();
       }
@@ -514,7 +631,6 @@
     root.setAttribute('data-bph-booting', '');
     root.setAttribute('data-bph-enabled', 'true');
     root.setAttribute('data-bph-triple', 'true');
-    root.setAttribute('data-bph-home', 'true');
     root.setAttribute('data-bph-profile', 'true');
     root.setAttribute('data-bph-history', 'true');
     root.setAttribute('data-bph-favorites', 'true');
@@ -523,6 +639,8 @@
     root.setAttribute('data-bph-creator', 'true');
     root.setAttribute('data-bph-dynamics', 'true');
     root.setAttribute('data-bph-messages', 'true');
+    root.setAttribute('data-bph-likes', 'true');
+    root.setAttribute('data-bph-spacevideos', 'true');
 
     applyAttributes();
     startObserver();

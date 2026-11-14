@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>首次设置 · BiliPublicHider</title>
+  <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+  <div class="wizard">
+    <aside class="visual">
+      <img id="welcomeImage" class="visual-image" alt="">
+      <div class="visual-shade" aria-hidden="true"></div>
+      <div class="visual-content">
+        <a class="brand" href="about.html" target="_blank" rel="noopener">
+          <img src="icons/icon48.png" alt="" class="brand-icon">
+          <span>
+            <strong>BiliPublicHider</strong>
+            <small>B站公共大屏隐私隐藏</small>
+          </span>
+        </a>
+
+        <div class="visual-copy">
+          <span class="visual-kicker">FIRST RUN SETUP</span>
+          <h1>让公共屏幕，<br>只留下内容。</h1>
+          <p>几步完成初始设置。之后可以随时通过扩展图标调整。</p>
+        </div>
+
+        <ol class="step-list" aria-label="设置进度">
+          <li data-step-dot="1" class="is-active"><span>01</span>欢迎</li>
+          <li data-step-dot="2"><span>02</span>选择隐藏内容</li>
+          <li data-step-dot="3"><span>03</span>设置密码</li>
+        </ol>
+      </div>
+    </aside>
+
+    <main class="panel">
+      <div class="panel-top">
+        <span id="stepCounter" class="step-counter">1 / 3</span>
+        <span class="version">v1.1.0</span>
+      </div>
+
+      <section class="step-panel" data-step="0" hidden>
+        <span class="eyebrow">LOCKED</span>
+        <h2>设置已锁定</h2>
+        <p class="lead">当前扩展已设置密码。输入密码后，才能重新运行设置向导。</p>
+        <div class="password-card">
+          <div class="field">
+            <label for="wizardPassword">设置密码</label>
+            <input id="wizardPassword" type="password" autocomplete="current-password" maxlength="64" placeholder="输入密码">
+          </div>
+          <p id="wizardUnlockError" class="form-error" role="alert" hidden></p>
+          <button id="wizardUnlockButton" class="button button--primary unlock-button" type="button">解锁并继续</button>
+        </div>
+      </section>
+
+      <section class="step-panel" data-step="1">
+        <span class="eyebrow">STEP 01</span>
+        <h2>先确认几件事</h2>
+        <p class="lead">BiliPublicHider 专为教室、会议室和展厅里的共用电脑设计。</p>
+        <ul class="benefit-list">
+          <li>
+            <strong>减少误触</strong>
+            <span>隐藏点赞、投币和收藏按钮，避免随手改变账号状态。</span>
+          </li>
+          <li>
+            <strong>收起私人内容</strong>
+            <span>主页、历史、收藏、追番、点赞、动态、消息和投稿内容都可以单独隐藏。</span>
+          </li>
+          <li>
+            <strong>本地运行</strong>
+            <span>设置和密码只保存在本机，不联网、不收集数据。</span>
+          </li>
+        </ul>
+        <div class="actions">
+          <button id="skipButton" class="button button--ghost" type="button">跳过向导</button>
+          <button id="startButton" class="button button--primary" type="button">开始设置</button>
+        </div>
+      </section>
+
+      <section class="step-panel" data-step="2" hidden>
+        <span class="eyebrow">STEP 02</span>
+        <h2>选择要隐藏的内容</h2>
+        <p class="lead">默认全部开启。你也可以只保留需要的项目。</p>
+
+        <div class="preset-row" role="group" aria-label="快速预设">
+          <button class="preset is-active" type="button" data-preset="all">全面保护</button>
+          <button class="preset" type="button" data-preset="triple">仅防三连</button>
+          <button class="preset" type="button" data-preset="privacy">只收隐私</button>
+        </div>
+
+        <div id="featureGroups" class="feature-groups"></div>
+
+        <div class="actions">
+          <button id="backToWelcome" class="button button--ghost" type="button">上一步</button>
+          <button id="nextFromFeatures" class="button button--primary" type="button">下一步</button>
+        </div>
+      </section>
+
+      <section class="step-panel" data-step="3" hidden>
+        <span class="eyebrow">STEP 03</span>
+        <h2>设置密码 <small>可选</small></h2>
+        <p class="lead">设置后，打开扩展弹窗需要先解锁，才能修改隐藏选项。</p>
+
+        <div class="password-card">
+          <div class="field">
+            <label for="newPassword">设置密码</label>
+            <input id="newPassword" type="password" autocomplete="new-password" maxlength="64" placeholder="留空则不设置">
+          </div>
+          <div class="field">
+            <label for="confirmPassword">确认密码</label>
+            <input id="confirmPassword" type="password" autocomplete="new-password" maxlength="64" placeholder="再次输入">
+          </div>
+          <p id="passwordHint" class="hint">至少 4 位。忘记后只能移除并重新安装扩展。</p>
+          <p id="finishError" class="form-error" role="alert" hidden></p>
+        </div>
+
+        <div class="actions">
+          <button id="backToFeatures" class="button button--ghost" type="button">上一步</button>
+          <button id="finishButton" class="button button--primary" type="button">完成并启用</button>
+        </div>
+      </section>
+
+      <section class="step-panel step-panel--done" data-step="4" hidden>
+        <div class="done-mark" aria-hidden="true">✓</div>
+        <span class="eyebrow">READY</span>
+        <h2>设置完成</h2>
+        <p id="doneSummary" class="lead">公共大屏保护已经启用，可以开始使用。</p>
+        <div class="done-actions">
+          <button id="openBilibili" class="button button--primary" type="button">打开 Bilibili</button>
+          <button id="openSettings" class="button button--ghost" type="button">打开设置</button>
+          <a class="text-link" href="about.html" target="_blank" rel="noopener">关于此扩展</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="backgrounds.js"></script>
+  <script src="password.js"></script>
+  <script src="welcome.js"></script>
+</body>
+</html>
