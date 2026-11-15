@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "BiliPublicHider — B站公共大屏隐私隐藏",
-  "short_name": "BiliPublicHider",
+  "default_locale": "zh_CN",
+  "name": "__MSG_extName__",
+  "short_name": "__MSG_extShortName__",
   "version": "1.1.0",
-  "description": "教室与公用设备专用：隐藏视频三连、个人主页、历史、收藏、点赞、追番、投稿、创作中心、动态和消息入口，支持设置密码与首次设置向导。",
+  "description": "__MSG_extDescription__",
   "minimum_chrome_version": "105",
   "permissions": ["storage"],
   "host_permissions": [
@@ -17,7 +18,7 @@
     "128": "icons/icon128.png"
   },
   "action": {
-    "default_title": "BiliPublicHider",
+    "default_title": "__MSG_actionTitle__",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",

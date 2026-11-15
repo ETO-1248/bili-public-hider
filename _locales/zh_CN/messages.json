@@ -1,0 +1,14 @@
+{
+  "extName": {
+    "message": "BiliPublicHider — B站公共大屏隐私隐藏"
+  },
+  "extShortName": {
+    "message": "BiliPublicHider"
+  },
+  "extDescription": {
+    "message": "教室与公用设备专用：隐藏视频三连、个人主页、历史、收藏、点赞、追番、投稿、创作中心、动态和消息入口，支持设置密码与首次设置向导。"
+  },
+  "actionTitle": {
+    "message": "BiliPublicHider"
+  }
+}

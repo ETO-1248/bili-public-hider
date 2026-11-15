@@ -109,7 +109,9 @@
 
 ```text
 BiliPublicHider/
-├── manifest.json          # Manifest V3，版本 1.1.0
+├── manifest.json          # Manifest V3，版本 1.1.0，default_locale = zh_CN
+├── _locales/zh_CN/
+│   └── messages.json      # 扩展名称、简介与按钮标题的简体中文本地化
 ├── background.js          # 首次安装/启动时打开设置向导
 ├── welcome.html           # 首次设置向导
 ├── welcome.css
@@ -269,7 +271,9 @@ The **About** button in the popup opens `about.html`, which contains:
 
 ```text
 BiliPublicHider/
-├── manifest.json          # Manifest V3, version 1.1.0
+├── manifest.json          # Manifest V3, version 1.1.0, default_locale = zh_CN
+├── _locales/zh_CN/
+│   └── messages.json      # Simplified Chinese localization for name, description, and action title
 ├── background.js          # Opens the setup wizard on install/startup
 ├── welcome.html           # First-run setup wizard
 ├── welcome.css
